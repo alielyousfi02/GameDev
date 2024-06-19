@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using GameProject.UI;  // Zorg ervoor dat de juiste namespace wordt geïmporteerd
 
 namespace GameProject
 {
@@ -8,6 +9,16 @@ namespace GameProject
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
+        private StartScreen _startScreen;
+
+        private enum GameState
+        {
+            StartMenu,
+            Playing,
+            GameOver
+        }
+
+        private GameState _currentGameState = GameState.StartMenu;
 
         public Game1()
         {
@@ -18,24 +29,27 @@ namespace GameProject
 
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
-
+            _startScreen = new StartScreen(_graphics);
             base.Initialize();
         }
 
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-
-            // TODO: use this.Content to load your game content here
+            _startScreen.LoadContent(Content);
         }
 
         protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                Exit();
+            if (_currentGameState == GameState.StartMenu)
+            {
+                _startScreen.Update(gameTime);
 
-            // TODO: Add your update logic here
+                if (Keyboard.GetState().IsKeyDown(Keys.Enter))
+                {
+                    _currentGameState = GameState.Playing;
+                }
+            }
 
             base.Update(gameTime);
         }
@@ -44,7 +58,10 @@ namespace GameProject
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            // TODO: Add your drawing code here
+            if (_currentGameState == GameState.StartMenu)
+            {
+                _startScreen.Draw(_spriteBatch);
+            }
 
             base.Draw(gameTime);
         }

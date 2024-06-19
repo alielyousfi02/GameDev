@@ -35,3 +35,5 @@ C:\Users\ali_e\Desktop\GameProject\GameProject\obj\Debug\net6.0-windows\refint\G
 C:\Users\ali_e\Desktop\GameProject\GameProject\obj\Debug\net6.0-windows\GameProject.pdb
 C:\Users\ali_e\Desktop\GameProject\GameProject\obj\Debug\net6.0-windows\GameProject.genruntimeconfig.cache
 C:\Users\ali_e\Desktop\GameProject\GameProject\obj\Debug\net6.0-windows\ref\GameProject.dll
+C:\Users\ali_e\Desktop\GameProject\GameProject\obj\Debug\net6.0-windows\GameProject.sourcelink.json
+C:\Users\ali_e\Desktop\GameProject\GameProject\bin\Debug\net6.0-windows\Content\background.xnb
