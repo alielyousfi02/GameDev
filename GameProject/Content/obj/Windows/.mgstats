@@ -1,2 +1,5 @@
 Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Size,Build Seconds
 "C:/Users/ali_e/Desktop/GameProject/GameProject/Content/background.png","C:/Users/ali_e/Desktop/GameProject/GameProject/Content/bin/Windows/background.xnb","TextureProcessor","Texture2DContent",1506334,5111893,0.2472187
+"C:/Users/ali_e/Desktop/GameProject/GameProject/Content/beachbackground.png","C:/Users/ali_e/Desktop/GameProject/GameProject/Content/bin/Windows/beachbackground.xnb","TextureProcessor","Texture2DContent",66915,3686485,0.2345483
+"C:/Users/ali_e/Desktop/GameProject/GameProject/Content/set-cave_bright.png","C:/Users/ali_e/Desktop/GameProject/GameProject/Content/bin/Windows/set-cave_bright.xnb","TextureProcessor","Texture2DContent",9538,184405,0.1578616
+"C:/Users/ali_e/Desktop/GameProject/GameProject/Content/startbutton.png","C:/Users/ali_e/Desktop/GameProject/GameProject/Content/bin/Windows/startbutton.xnb","TextureProcessor","Texture2DContent",13786,1263685,0.1416468

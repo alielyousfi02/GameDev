@@ -5,8 +5,14 @@
   <Config />
   <SourceFiles>
     <File>C:/Users/ali_e/Desktop/GameProject/GameProject/Content/background.png</File>
+    <File>C:/Users/ali_e/Desktop/GameProject/GameProject/Content/beachbackground.png</File>
+    <File>C:/Users/ali_e/Desktop/GameProject/GameProject/Content/set-cave_bright.png</File>
+    <File>C:/Users/ali_e/Desktop/GameProject/GameProject/Content/startbutton.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
   </DestFiles>
 </SourceFileCollection>

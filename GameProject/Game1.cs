@@ -1,7 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using GameProject.UI;  // Zorg ervoor dat de juiste namespace wordt geïmporteerd
+using GameProject.UI;
+using GameProject.Levels;
+using Microsoft.Xna.Framework.Content;
 
 namespace GameProject
 {
@@ -10,10 +12,14 @@ namespace GameProject
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
         private StartScreen _startScreen;
+        private Level1 _level1;
+        private Texture2D _backgroundTexture;
+        private ContentManager _contentManager;
 
         private enum GameState
         {
             StartMenu,
+            Level1,
             Playing,
             GameOver
         }
@@ -23,32 +29,46 @@ namespace GameProject
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
+            _graphics.PreferredBackBufferWidth = 720;
+            _graphics.PreferredBackBufferHeight = 720;
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
         }
 
         protected override void Initialize()
         {
-            _startScreen = new StartScreen(_graphics);
             base.Initialize();
         }
 
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-            _startScreen.LoadContent(Content);
+            _backgroundTexture = Content.Load<Texture2D>("background");
+
+            _contentManager = Content;
+
+            _startScreen = new StartScreen(_contentManager, _backgroundTexture, GraphicsDevice);
+            _startScreen.StartButtonClicked += StartScreen_StartButtonClicked;
+
+            _level1 = new Level1();
+            _level1.LoadLevel(Content, GraphicsDevice);
+        }
+
+        private void StartScreen_StartButtonClicked()
+        {
+            _currentGameState = GameState.Level1;
         }
 
         protected override void Update(GameTime gameTime)
         {
             if (_currentGameState == GameState.StartMenu)
             {
-                _startScreen.Update(gameTime);
+                MouseState mouseState = Mouse.GetState();
+                _startScreen.Update(gameTime, mouseState);
+            }
+            else if (_currentGameState == GameState.Level1)
+            {
 
-                if (Keyboard.GetState().IsKeyDown(Keys.Enter))
-                {
-                    _currentGameState = GameState.Playing;
-                }
             }
 
             base.Update(gameTime);
@@ -61,6 +81,10 @@ namespace GameProject
             if (_currentGameState == GameState.StartMenu)
             {
                 _startScreen.Draw(_spriteBatch);
+            }
+            else if (_currentGameState == GameState.Level1)
+            {
+                _level1.Draw(_spriteBatch);
             }
 
             base.Draw(gameTime);
