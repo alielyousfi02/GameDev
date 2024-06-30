@@ -14,11 +14,13 @@ namespace GameProject.Levels
         protected int mapWidth;
         protected int mapHeight;
         protected Rectangle backgroundRectangle;
+        protected int edgeTileId;
 
-        public Level(int tileWidth, int tileHeight)
+        public Level(int tileWidth, int tileHeight, int edgeTileId)
         {
             this.tileWidth = tileWidth;
             this.tileHeight = tileHeight;
+            this.edgeTileId = edgeTileId;
         }
 
         public virtual void LoadContent(ContentManager contentManager, string tilesetPath, string backgroundPath, int[,] mapData, GraphicsDevice graphicsDevice)
@@ -34,8 +36,10 @@ namespace GameProject.Levels
         public virtual void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Begin();
+            // Draw the background first
             spriteBatch.Draw(backgroundTexture, backgroundRectangle, Color.White);
 
+            // Draw the entire map
             for (int y = 0; y < mapHeight; y++)
             {
                 for (int x = 0; x < mapWidth; x++)
@@ -43,18 +47,35 @@ namespace GameProject.Levels
                     int tileId = map[y, x];
                     if (tileId >= 0)
                     {
-                        int tilesetColumns = tilesetTexture.Width / tileWidth;
-                        int tilesetX = (tileId % tilesetColumns) * tileWidth;
-                        int tilesetY = (tileId / tilesetColumns) * tileHeight;
-                        Rectangle sourceRectangle = new Rectangle(tilesetX, tilesetY, tileWidth, tileHeight);
-                        Rectangle destinationRectangle = new Rectangle(x * tileWidth, y * tileHeight, tileWidth, tileHeight);
+                        DrawTile(spriteBatch, tileId, x, y);
+                    }
+                }
+            }
 
-                        spriteBatch.Draw(tilesetTexture, destinationRectangle, sourceRectangle, Color.White);
+            // Draw the edge tiles
+            for (int y = 0; y < mapHeight; y++)
+            {
+                for (int x = 0; x < mapWidth; x++)
+                {
+                    if ((x == 0 || x == mapWidth - 1 || y == mapHeight - 1) && y != 0) // Exclude the top row and only decorate left, right, and bottom edges
+                    {
+                        DrawTile(spriteBatch, edgeTileId, x, y);
                     }
                 }
             }
 
             spriteBatch.End();
+        }
+
+        private void DrawTile(SpriteBatch spriteBatch, int tileId, int x, int y)
+        {
+            int tilesetColumns = tilesetTexture.Width / tileWidth;
+            int tilesetX = (tileId % tilesetColumns) * tileWidth;
+            int tilesetY = (tileId / tilesetColumns) * tileHeight;
+            Rectangle sourceRectangle = new Rectangle(tilesetX, tilesetY, tileWidth, tileHeight);
+            Rectangle destinationRectangle = new Rectangle(x * tileWidth, y * tileHeight, tileWidth, tileHeight);
+
+            spriteBatch.Draw(tilesetTexture, destinationRectangle, sourceRectangle, Color.White);
         }
     }
 }
