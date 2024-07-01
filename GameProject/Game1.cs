@@ -3,6 +3,8 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using GameProject.UI;
 using GameProject.Levels;
+
+using System.Collections.Generic;
 using Microsoft.Xna.Framework.Content;
 
 namespace GameProject
@@ -15,6 +17,7 @@ namespace GameProject
         private Level1 _level1;
         private Texture2D _backgroundTexture;
         private ContentManager _contentManager;
+
 
         private enum GameState
         {
@@ -29,8 +32,9 @@ namespace GameProject
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
-            _graphics.PreferredBackBufferWidth = 720;
+            _graphics.PreferredBackBufferWidth = 1440;
             _graphics.PreferredBackBufferHeight = 720;
+            _graphics.ApplyChanges();
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
         }
@@ -52,6 +56,9 @@ namespace GameProject
 
             _level1 = new Level1();
             _level1.LoadLevel(Content, GraphicsDevice);
+
+            // Load hero and enemies
+          
         }
 
         private void StartScreen_StartButtonClicked()
@@ -68,7 +75,7 @@ namespace GameProject
             }
             else if (_currentGameState == GameState.Level1)
             {
-
+               
             }
 
             base.Update(gameTime);
@@ -85,6 +92,7 @@ namespace GameProject
             else if (_currentGameState == GameState.Level1)
             {
                 _level1.Draw(_spriteBatch);
+              
             }
 
             base.Draw(gameTime);
